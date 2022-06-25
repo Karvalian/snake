@@ -9,7 +9,7 @@ HEIGHT = 640
 pygame.init()
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-speed = 1
+speed = float(input("Enter speed: "))
 running = True
 bruh = (0,0,0)
 snake = pygame.image.load("snake.png")
