@@ -56,7 +56,9 @@ while running:
   screen.fill(bruh)
   screen.blit(snake, (rect.x,rect.y))
   text = font.render(str("Score: " + str(score)).encode(), True, ((255,255,0)))
+  text2 = font.render(str("Made by Karvalian"), True, ((255,255,0)))
   screen.blit(text, (0, 0))
+  screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
     screen.blit(food, (foodrect.x, foodrect.y))
   pygame.display.flip()
