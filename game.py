@@ -65,10 +65,13 @@ while running:
   screen.blit(snake, (rect.x,rect.y))
   text = font.render(str("Score: " + str(score)).encode(), True, ((255,255,0)))
   text2 = font.render(str("Made by Karvalian"), True, ((255,255,0)))
+  if(lastkey==K_q):
+    running = False
   if((lastkey not in keys) & (lastkey!=K_l)):
     screen.blit(pause, (300, 0))
   elif(lastkey==K_l):
     screen.blit(over, (300, 0))
+  
   screen.blit(text, (0, 0))
   screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
