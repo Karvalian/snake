@@ -9,7 +9,8 @@ HEIGHT = 640
 pygame.init()
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-speed = float(input("Enter speed: "))
+#speed = float(input("Enter speed: "))
+speed = 1
 running = True
 bruh = (0,0,0)
 snake = pygame.image.load("snake.png")
@@ -27,17 +28,20 @@ score = 0
 font = pygame.font.SysFont('droidsansmono', 32)
 lastkey = 0
 clock = pygame.time.Clock()
+
 while running:
   dt = clock.tick(60)
 
   random.seed(time.time())
-  
+  keys = [K_d, K_a, K_w, K_s]
+  pause = font.render(str("Paused"), True, ((255, 255,0)))
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
       pygame.quit()
     if event.type == pygame.KEYDOWN:
       lastkey = event.key
+      
   if(lastkey == K_d):
     rect.x += speed*dt
   if(lastkey == K_a):
@@ -57,6 +61,8 @@ while running:
   screen.blit(snake, (rect.x,rect.y))
   text = font.render(str("Score: " + str(score)).encode(), True, ((255,255,0)))
   text2 = font.render(str("Made by Karvalian"), True, ((255,255,0)))
+  if(lastkey not in keys):
+    screen.blit(pause, (300, 0))
   screen.blit(text, (0, 0))
   screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
