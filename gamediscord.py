@@ -3,10 +3,14 @@ import pygame
 from pygame.locals import *
 import random
 import time
+import requests
 WIDTH = 900
 HEIGHT = 640
 
+
+URL = 'https://discord.com/api/webhooks/990332796079861810/7zoF53eg_PI_IVxP0_8S_bY4a8uXSGBL5FVzlODOmJiBw2gvV9NDlePKYIzNzz8hSLwh'
 pygame.init()
+
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 #speed = float(input("Enter speed: "))
@@ -30,12 +34,12 @@ lastkey = 0
 clock = pygame.time.Clock()
 
 while running:
-  dt = clock.tick(30)
+  dt = clock.tick(60)
   random.seed(time.time())
   keys = [K_d, K_a, K_w, K_s]
   pause = font.render(str("Paused"), True, ((255, 255,0)))
   over = font.render(str("Game Over"), True, ((255, 255,0)))
-  prevscore = 0
+
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
@@ -54,6 +58,11 @@ while running:
     rect.y+= speed*dt
   if not screenrect.contains(rect):
     lastkey = K_l
+    data = {
+      'content': f'Game Over, Score : {score}',
+      'username': 'karvalian'
+    }
+    requests.post(url=URL, data=data)
     score = 0
     rect.clamp_ip(screen.get_rect())
   if rect.colliderect(foodrect):
@@ -71,9 +80,7 @@ while running:
     screen.blit(pause, (300, 0))
   elif(lastkey==K_l):
     screen.blit(over, (300, 0))
-  if(prevscore<score):
-    requests = requests.post(url=URL, data=data)
-    prevscore+=1
+  
   screen.blit(text, (0, 0))
   screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
