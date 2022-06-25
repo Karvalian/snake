@@ -9,20 +9,20 @@ HEIGHT = 640
 pygame.init()
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-speed = 0.1
+speed = 1
 running = True
-bruh = (255, 0, 255)
-snake = pygame.image.load("test.png")
-snake = pygame.transform.scale(snake, (25, 25))
+bruh = (0,0,0)
+snake = pygame.image.load("snake.png")
+snake = pygame.transform.scale(snake, (35, 35))
 rect = snake.get_rect()
 rect.x = 900//2
 rect.y = 640//2
-food = pygame.image.load("test.png")
-food = pygame.transform.scale(food, (25,25))
+food = pygame.image.load("food.png")
+food = pygame.transform.scale(food, (35, 35))
 foodrect = food.get_rect()
 
-foodrect.x = random.randint(0,900-25)
-foodrect.y = random.randint(0,640-25)
+foodrect.x = random.randint(0,900-35)
+foodrect.y = random.randint(0,640-35)
 score = 0
 font = pygame.font.SysFont('droidsansmono', 32)
 lastkey = 0
@@ -43,14 +43,14 @@ while running:
   if(lastkey == K_a):
     rect.x -= speed*dt
   if(lastkey == K_w):
-    rect.y-=speed*dt
+    rect.y-= speed*dt
   if(lastkey == K_s):
-    rect.y+=speed*dt
+    rect.y+= speed*dt
   rect.clamp_ip(screen.get_rect())
   if rect.colliderect(foodrect):
-    foodrect.x = random.randint(0,900-25)
-    foodrect.y = random.randint(0,640-25)
-    speed+=0.1
+    foodrect.x = random.randint(0,900-35)
+    foodrect.y = random.randint(0,640-35)
+    speed+=0.0001
     score+=1
     
   screen.fill(bruh)
