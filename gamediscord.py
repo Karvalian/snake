@@ -4,8 +4,6 @@ from pygame.locals import *
 import random
 import time
 import requests
-import pygame_widgets
-from pygame_widgets.textbox import TextBox
 WIDTH = 900
 HEIGHT = 640
 
@@ -90,7 +88,6 @@ while running:
   screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
     screen.blit(food, (foodrect.x, foodrect.y))
-  pygame_widgets.update(events)
   pygame.display.flip()
 
 
