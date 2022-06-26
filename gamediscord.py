@@ -7,14 +7,14 @@ import requests
 WIDTH = 900
 HEIGHT = 640
 
-
+username = input("Enter your username: ")
+speed = float(input("Enter the speed: "))
 URL = 'https://discord.com/api/webhooks/990332796079861810/7zoF53eg_PI_IVxP0_8S_bY4a8uXSGBL5FVzlODOmJiBw2gvV9NDlePKYIzNzz8hSLwh'
 pygame.init()
 
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 #speed = float(input("Enter speed: "))
-speed = 1
 running = True
 bruh = (0,0,0)
 snake = pygame.image.load("snake.png")
@@ -29,7 +29,7 @@ foodrect = food.get_rect()
 foodrect.x = random.randint(0,900-35)
 foodrect.y = random.randint(0,640-35)
 score = 0
-font = pygame.font.SysFont('droidsansmono', 32)
+font = pygame.font.SysFont('sfmono', 32)
 lastkey = 0
 clock = pygame.time.Clock()
 
@@ -50,19 +50,21 @@ while running:
   screenrect = screen.get_rect()
   if(lastkey == K_d):
     rect.x += speed*dt
-  if(lastkey == K_a):
+  elif(lastkey == K_a):
     rect.x -= speed*dt
-  if(lastkey == K_w):
+  elif(lastkey == K_w):
     rect.y-= speed*dt
-  if(lastkey == K_s):
+  elif(lastkey == K_s):
     rect.y+= speed*dt
   if not screenrect.contains(rect):
     lastkey = K_l
     data = {
-      'content': f'Game Over, Score : {score}',
-      'username': 'karvalian'
+        'content': f'Game Over, Username : {username}, MaxSpeed : {speed}  Score : {score} ',
     }
-    requests.post(url=URL, data=data)
+    rect.x = WIDTH//2
+    rect.y = HEIGHT//2
+    if(score>0):
+      requests.post(url=URL, data=data)
     score = 0
     rect.clamp_ip(screen.get_rect())
   if rect.colliderect(foodrect):
@@ -76,7 +78,7 @@ while running:
   text2 = font.render(str("Made by Karvalian"), True, ((255,255,0)))
   if(lastkey==K_q):
     running = False
-  if((lastkey not in keys) & (lastkey!=K_l)):
+  elif((lastkey not in keys) & (lastkey!=K_l)):
     screen.blit(pause, (300, 0))
   elif(lastkey==K_l):
     screen.blit(over, (300, 0))
