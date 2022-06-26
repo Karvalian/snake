@@ -4,6 +4,8 @@ from pygame.locals import *
 import random
 import time
 import requests
+import pygame_widgets
+from pygame_widgets.textbox import TextBox
 WIDTH = 900
 HEIGHT = 640
 
@@ -11,6 +13,7 @@ username = input("Enter your username: ")
 speed = float(input("Enter the speed: "))
 URL = 'https://discord.com/api/webhooks/990332796079861810/7zoF53eg_PI_IVxP0_8S_bY4a8uXSGBL5FVzlODOmJiBw2gvV9NDlePKYIzNzz8hSLwh'
 pygame.init()
+
 
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -39,8 +42,8 @@ while running:
   keys = [K_d, K_a, K_w, K_s]
   pause = font.render(str("Paused"), True, ((255, 255,0)))
   over = font.render(str("Game Over"), True, ((255, 255,0)))
-
-  for event in pygame.event.get():
+  events = pygame.event.get()
+  for event in events:
     if event.type == pygame.QUIT:
       running = False
       pygame.quit()
@@ -87,6 +90,7 @@ while running:
   screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
     screen.blit(food, (foodrect.x, foodrect.y))
+  pygame_widgets.update(events)
   pygame.display.flip()
 
 
