@@ -9,9 +9,9 @@ HEIGHT = 640
 
 username = input("Enter your username: ")
 speed = float(input("Enter the speed: "))
-URL = 'https://discord.com/api/webhooks/990332796079861810/7zoF53eg_PI_IVxP0_8S_bY4a8uXSGBL5FVzlODOmJiBw2gvV9NDlePKYIzNzz8hSLwh'
+URL = 'YOUR WEBHOOK URL HERE'
 pygame.init()
-
+startspeed = speed
 
 # DID SOME MINOR WORK OFF STREAM JUST TO FIX MOVEMENTS
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -60,12 +60,17 @@ while running:
   if not screenrect.contains(rect):
     lastkey = K_l
     data = {
-        'content': f'Game Over, Username : {username}, MaxSpeed : {speed}  Score : {score} ',
+
     }
+    data['embeds'] = [{
+      'title': 'Game Over',
+      'description': f'Username : {username}, StartSpeed : {startspeed},  MaxSpeed : {speed}  Score : {score} ',
+
+    }]
     rect.x = WIDTH//2
     rect.y = HEIGHT//2
     if(score>0):
-      requests.post(url=URL, data=data)
+      requests.post(url=URL, json=data)
     score = 0
     rect.clamp_ip(screen.get_rect())
   if rect.colliderect(foodrect):
