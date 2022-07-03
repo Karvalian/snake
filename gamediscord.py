@@ -1,3 +1,5 @@
+# put the webhooks link in the url column
+
 #!/usr/bin/env python3
 import pygame
 from pygame.locals import *
@@ -9,7 +11,7 @@ HEIGHT = 640
 
 username = input("Enter your username: ")
 speed = float(input("Enter the speed: "))
-URL = 'https://discord.com/api/webhooks/990332796079861810/7zoF53eg_PI_IVxP0_8S_bY4a8uXSGBL5FVzlODOmJiBw2gvV9NDlePKYIzNzz8hSLwh'
+URL = 'put it here'
 pygame.init()
 
 
@@ -47,7 +49,7 @@ while running:
       pygame.quit()
     if event.type == pygame.KEYDOWN:
       lastkey = event.key
-      
+
   screenrect = screen.get_rect()
   if(lastkey == K_d):
     rect.x += speed*dt
@@ -83,11 +85,9 @@ while running:
     screen.blit(pause, (300, 0))
   elif(lastkey==K_l):
     screen.blit(over, (300, 0))
-  
+
   screen.blit(text, (0, 0))
   screen.blit(text2, (550, 0))
   if(foodrect.x!=-1):
     screen.blit(food, (foodrect.x, foodrect.y))
   pygame.display.flip()
-
-
